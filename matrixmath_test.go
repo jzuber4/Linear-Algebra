@@ -180,19 +180,19 @@ func TestEqual(t *testing.T) {
     matrixD, _ := New(d)
     matrixE, _ := New(e)
     if !Equal(matrixA, matrixA) {
-        t.Errorf("Equal(%v, %v) = false, want true (same id)") 
+        t.Errorf("Equal(%v, %v) = false, want true (same id)", matrixA, matrixA) 
     }
     if Equal(matrixA, matrixB) || Equal(matrixB, matrixA) {
-        t.Errorf("Equal(%v, %v) = true, want false") 
+        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixB) 
     }
     if !Equal(matrixA, matrixC) || !Equal(matrixC, matrixA) {
-        t.Errorf("Equal(%v, %v) = false, want true (same contents)") 
+        t.Errorf("Equal(%v, %v) = false, want true (same contents)", matrixA, matrixC) 
     }
     if Equal(matrixA, matrixD) || Equal(matrixD, matrixA) {
-        t.Errorf("Equal(%v, %v) = true, want false") 
+        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixB) 
     }
     if Equal(matrixA, matrixE) || Equal(matrixE, matrixA) {
-        t.Errorf("Equal(%v, %v) = true, want false") 
+        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixB) 
     }
     
 }
