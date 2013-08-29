@@ -15,41 +15,41 @@ func DotProduct(a, b []float64) float64 {
 }
 
 func AddVectors(a, b []float64) []float64 {
-    if len(a) != len(b) {
-        return nil
-    }
-    newV := make([]float64, len(a))
-    for i := range a {
-        newV[i] = a[i] + b[i]
-    }
-    return newV
+	if len(a) != len(b) {
+		return nil
+	}
+	newV := make([]float64, len(a))
+	for i := range a {
+		newV[i] = a[i] + b[i]
+	}
+	return newV
 }
 
 func SubtractVectors(a, b []float64) []float64 {
-    if len(a) != len(b) {
-        return nil
-    }
-    newV := make([]float64, len(a))
-    for i := range a {
-        newV[i] = a[i] - b[i]
-    }
-    return newV
+	if len(a) != len(b) {
+		return nil
+	}
+	newV := make([]float64, len(a))
+	for i := range a {
+		newV[i] = a[i] - b[i]
+	}
+	return newV
 }
 
 func ScaleVector(oldV []float64, s float64) []float64 {
-    newV := make([]float64, len(oldV))
-    copy(newV, oldV)
-    for i, val := range newV {
-        newV[i] = val * s
-    }
-    return newV
+	newV := make([]float64, len(oldV))
+	copy(newV, oldV)
+	for i, val := range newV {
+		newV[i] = val * s
+	}
+	return newV
 }
 
 func DivideVector(oldV []float64, s float64) []float64 {
-    newV := make([]float64, len(oldV))
-    copy(newV, oldV)
-    for i, val := range newV {
-        newV[i] = val / s
-    }
-    return newV
+	newV := make([]float64, len(oldV))
+	copy(newV, oldV)
+	for i, val := range newV {
+		newV[i] = val / s
+	}
+	return newV
 }

@@ -9,7 +9,7 @@ func Invert(m *Matrix) *Matrix {
 
 // Returns the reduced row echelon form of the matrix m
 func RREF(m *Matrix) *Matrix {
-    
+
     return nil
 }
 
@@ -32,7 +32,7 @@ func Basis(m *Matrix) *Matrix {
     return nil
 }
 
-// Returns a matrix that spans the image of matrix m 
+// Returns a matrix that spans the image of matrix m
 // consisting of mutually perpendicular unit vectors
 func OrthonormalBasis(M *Matrix) *Matrix {
 

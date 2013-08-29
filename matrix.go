@@ -105,9 +105,9 @@ func Multiply(a, b *Matrix) (*Matrix, *matrixError) {
 }
 
 func Equal(a, b *Matrix) bool {
-    if a == b {
-        return true
-    }
+	if a == b {
+		return true
+	}
 	if a.height != b.height || a.width != b.width {
 		return false
 	}
