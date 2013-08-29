@@ -57,7 +57,7 @@ func TestAdd(t *testing.T) {
 	}
 	// Test if the addition in this function equals the package addition
 	if !Equal(matrixC1, matrixC2) {
-		t.Errorf("Add(%v, %v) = %v, want %v", matrixA, matrixB, matrixC2, matrixC1)
+		t.Errorf("Add operation produced incorrect result")
 	}
 
 }
@@ -99,7 +99,7 @@ func TestSubtract(t *testing.T) {
 	}
 	// compare subtractions
 	if !Equal(matrixC1, matrixC2) {
-		t.Errorf("Subtract(%v, %v) = %v, want %v", matrixA, matrixB, matrixC2, matrixC1)
+		t.Errorf("Subtract operation produced incorrect result")
 	}
 }
 
@@ -122,7 +122,7 @@ func TestMultiply(t *testing.T) {
 	if e != nil {
 		t.Errorf("%v", e.Error())
 	}
-	matrixC1, e := Multiply(matrixA, matrixB)
+	matrixC2, e := Multiply(matrixA, matrixB)
 	if e != nil {
 		t.Errorf("%v", e.Error())
 	}
@@ -133,12 +133,12 @@ func TestMultiply(t *testing.T) {
 			c[i][j] = DotProduct(a[i], matrixB.Col(j))
 		}
 	}
-	matrixC2, e := New(c)
+	matrixC1, e := New(c)
 	if e != nil {
 		t.Errorf("%v", e.Error())
 	}
 	if !Equal(matrixC1, matrixC2) {
-		t.Errorf("Add(%v, %v) = %v, want %v", matrixA, matrixB, matrixC2, matrixC1)
+		t.Errorf("Multiply operation produced incorrect result")
 	}
 }
 
@@ -180,19 +180,19 @@ func TestEqual(t *testing.T) {
     matrixD, _ := New(d)
     matrixE, _ := New(e)
     if !Equal(matrixA, matrixA) {
-        t.Errorf("Equal(%v, %v) = false, want true (same id)", matrixA, matrixA) 
+        t.Errorf("Equal returned false for two pointers to the same matrix") 
     }
     if Equal(matrixA, matrixB) || Equal(matrixB, matrixA) {
-        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixB) 
+        t.Errorf("Equal returned true for matrices with different contents and the same size") 
     }
     if !Equal(matrixA, matrixC) || !Equal(matrixC, matrixA) {
-        t.Errorf("Equal(%v, %v) = false, want true (same contents)", matrixA, matrixC) 
+        t.Errorf("Equal returned false for two matrices with the same contents.", matrixA, matrixC) 
     }
     if Equal(matrixA, matrixD) || Equal(matrixD, matrixA) {
-        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixD) 
+        t.Errorf("Equal returned true for matrices of different height") 
     }
     if Equal(matrixA, matrixE) || Equal(matrixE, matrixA) {
-        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixE) 
+        t.Errorf("Equal returned true for matrices of different width") 
     }
     
 }
