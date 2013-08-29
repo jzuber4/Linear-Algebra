@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"testing"
 	"time"
+    "fmt"
 )
 
 // create a random 2d slice of length h containing slices of length w
@@ -20,9 +21,19 @@ func random2dSlice(w, h int, max float64) [][]float64 {
 	return a
 }
 
+func TestRREF(t *testing.T) {
+    w := [][]float64{[]float64{float64(rand.Intn(10)-5), float64(rand.Intn(10)-5)}, []float64{float64(rand.Intn(10)-5), float64(rand.Intn(10)-5)}}
+    v := [][]float64{[]float64{1.0, 0.0, 10.0}, []float64{5.0, 0.0, 5.9}}
+    matrixV, _ := New(v)
+    matrixW, _ := New(w)
+    rref := RREF(matrixW)
+    rrefv := RREF(matrixV)
+    fmt.Println(rref)
+    fmt.Println(rrefv)
+}
+
 // Test matrix addition
 func TestAdd(t *testing.T) {
-	// seed some randomness
 	rand.Seed(time.Now().UTC().UnixNano())
 	// matrices with length/widths of 1 to 100
 	w := rand.Intn(99) + 1

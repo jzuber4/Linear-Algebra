@@ -14,6 +14,15 @@ func DotProduct(a, b []float64) float64 {
 	return v
 }
 
+func LeadingCoefficient(v []float64) (float64, int) {
+    for i := range v {
+        if v[i] != 0 {
+            return v[i], i
+        }
+    }
+    return 0, -1
+}
+
 func AddVectors(a, b []float64) []float64 {
 	if len(a) != len(b) {
 		return nil

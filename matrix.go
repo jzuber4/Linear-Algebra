@@ -44,6 +44,25 @@ func (this *Matrix) Col(index int) []float64 {
 	return col
 }
 
+// returns a shallow copy of the row
+func (this *Matrix) Row(index int) []float64 {
+    return this.rows[index]
+}
+
+func (this *Matrix) SwapRows(i, j int) {
+    temp := this.rows[i]
+    this.rows[i] = this.rows[j]
+    this.rows[j] = temp 
+}
+
+// Here I assume the row is of the correct size, or else woe be on ye
+func (this *Matrix) PutRow(index int, newRow []float64) {
+    if len(newRow) != this.W() {
+        panic("Invalid row length")
+    }
+    copy(this.rows[index], newRow)
+}
+
 /* For each cell of matrices a and b, evaluates a function f and
 stores the result in the same cell of a new matrix. Returns the new
 matrix m. */
@@ -102,6 +121,16 @@ func Multiply(a, b *Matrix) (*Matrix, *matrixError) {
 		}
 	}
 	return New(m)
+}
+
+// number of columns in the matrix
+func (this *Matrix) W() int {
+    return this.width
+}
+
+// number of rows in the matrix
+func (this *Matrix) H() int {
+    return this.height
 }
 
 func Equal(a, b *Matrix) bool {
