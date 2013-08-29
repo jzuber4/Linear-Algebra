@@ -189,10 +189,10 @@ func TestEqual(t *testing.T) {
         t.Errorf("Equal(%v, %v) = false, want true (same contents)", matrixA, matrixC) 
     }
     if Equal(matrixA, matrixD) || Equal(matrixD, matrixA) {
-        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixB) 
+        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixD) 
     }
     if Equal(matrixA, matrixE) || Equal(matrixE, matrixA) {
-        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixB) 
+        t.Errorf("Equal(%v, %v) = true, want false", matrixA, matrixE) 
     }
     
 }
