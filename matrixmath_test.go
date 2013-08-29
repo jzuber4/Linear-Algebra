@@ -1,3 +1,4 @@
+// Contains definition of matrix type as well as basic operations for matrices including addition, subtraction, and multiplication 
 package matrixmath
 
 import (
