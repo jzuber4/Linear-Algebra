@@ -5,7 +5,6 @@ import (
 	"math/rand"
 	"testing"
 	"time"
-    "fmt"
 )
 
 // create a random 2d slice of length h containing slices of length w
@@ -22,14 +21,55 @@ func random2dSlice(w, h int, max float64) [][]float64 {
 }
 
 func TestRREF(t *testing.T) {
-    w := [][]float64{[]float64{float64(rand.Intn(10)-5), float64(rand.Intn(10)-5)}, []float64{float64(rand.Intn(10)-5), float64(rand.Intn(10)-5)}}
-    v := [][]float64{[]float64{1.0, 0.0, 10.0}, []float64{5.0, 0.0, 5.9}}
-    matrixV, _ := New(v)
-    matrixW, _ := New(w)
-    rref := RREF(matrixW)
-    rrefv := RREF(matrixV)
-    fmt.Println(rref)
-    fmt.Println(rrefv)
+    // Linear independence tests
+    // 3 linearly independent vectors
+    v1 := []float64{1.0, 1.0, 1.0}
+    v2 := []float64{-1.0, 0.0, 1.0}
+    v3 := []float64{0.0, 1.0, 1.0}
+    // rref equals I3
+    m1, _ := New([][]float64{v1, v2, v3})
+    // rref dne I3
+    m2, _ := New([][]float64{v1, v1, v2})
+    // rref equals I3
+    m3, _ := New([][]float64{AddVectors(v1, v2), AddVectors(v1, v3), v1})
+    // rref dne I3
+    m4, _ := New([][]float64{AddVectors(v1, v2), v1, v2})
+    if !Equal(RREF(m1), Identity(3)) {
+		t.Errorf("RREF of three linearly indep. vectors should equal Identity matrix")
+    }
+    if Equal(RREF(m2), Identity(3)) || !Equal(RREF(m2).Submatrix(0, 2, 0, 2), Identity(2)) {
+        t.Errorf("RREF of matrix containing duplicate vector should not equal Identity - Submatrix(0, 2, 0, 2) should equal Identity")
+    }
+    if !Equal(RREF(m3), Identity(3)) {
+        t.Errorf("Adding one vector to the other vectors should preserve linear independence")
+    }
+    if Equal(RREF(m4), Identity(3)) || !Equal(RREF(m4).Submatrix(0, 2, 0, 2), Identity(2)) {
+        t.Errorf("One vector is the sum of two others - rref should not equal Identity - Submatrix(0, 2, 0, 2) should equal Identity")
+    }
+    // Random tests
+	rand.Seed(time.Now().UTC().UnixNano())
+    w := rand.Intn(99) + 1
+    h := rand.Intn(99) + 1
+    max := 100.0
+    // Test random sized matrix - check if errors occur
+    a, _ := New(random2dSlice(w, h, max)) 
+    _ = RREF(a)
+    // Test random sized empty matrix - check if errors occur
+    b1 := make([][]float64, h)
+    for i := range b1 {
+        b1[i] = make([]float64, w)
+    }
+    b2, _ := New(b1)
+    _ = RREF(b2)
+    // Test random sized matrix with only one linear indep vector - check for correct result
+    for i := range b1 {
+        b1[i][0] = 1.0
+    }
+    b2, _ = New(b1)
+    b3 := RREF(b2)
+    if Equal(b3.Submatrix(0, 2, 0, 2), Identity(2)) || !Equal(b3.Submatrix(0, 1, 0, 1), Identity(1)) {
+        t.Errorf("RREF of matrix with one linearly independent vector should have one non-zero vector [1, 0, ...]")
+    }
 }
 
 // Test matrix addition

@@ -104,7 +104,7 @@ func (this *Matrix) Contents() [][]float64 {
 }
 
 /* cache friendly multiplication of two matrices */
-/* runs in N^3 time (for square matrices of size N x N), A.rows * a.cols * b.cols time for rectangular matrices */
+/* runs in N^3 time (for square matrices of size N x N), a.rows * a.cols * b.cols time for rectangular matrices */
 func Multiply(a, b *Matrix) (*Matrix, *matrixError) {
 	if a.width != b.height {
 		return nil, &matrixError{"Matrix a must have the same number of columns as matrix b has rows."}
@@ -123,6 +123,15 @@ func Multiply(a, b *Matrix) (*Matrix, *matrixError) {
 	return New(m)
 }
 
+func (this *Matrix) Submatrix(minCol, maxCol, minRow, maxRow int) *Matrix {
+    k := make([][]float64, maxRow - minRow)  
+    for i := range k {
+        k[i] = this.Row(minRow + i)[minCol:maxCol]
+    }
+    m, _ := New(k)
+    return m
+}
+
 // number of columns in the matrix
 func (this *Matrix) W() int {
     return this.width
@@ -131,6 +140,16 @@ func (this *Matrix) W() int {
 // number of rows in the matrix
 func (this *Matrix) H() int {
     return this.height
+}
+
+func Identity(n int) *Matrix {
+    m := make([][]float64, n)  
+    for i := range m {
+        m[i] = make([]float64, n)
+        m[i][i] = 1.0
+    }
+    matrixM, _ := New(m)
+    return matrixM 
 }
 
 func Equal(a, b *Matrix) bool {
